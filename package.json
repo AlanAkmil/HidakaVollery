@@ -1,0 +1,12 @@
+{
+  "name": "hidakaread",
+  "version": "1.0.0",
+  "description": "HidakaRead - Web Komik & Novel Reader",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
