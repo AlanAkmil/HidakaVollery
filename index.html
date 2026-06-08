@@ -4,94 +4,98 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HidakaRead</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0a0910;--card:#110f1e;--card2:#16132a;--pm:#7c3aed;--pl:#a78bfa;--pg:#7c3aed55;--pd:#2d1f5e;--pk:#e879f9;--tx:#e8e0ff;--tm:#8b7db0;--td:#4e4470;--br:#2a2050;}
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;}
-  ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--pm);border-radius:10px;}
-  nav{position:sticky;top:0;z-index:100;background:rgba(10,9,16,0.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);padding:0 14px;display:flex;align-items:center;justify-content:space-between;height:56px;gap:10px;}
-  .logo{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,var(--pl),var(--pk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;flex-shrink:0;}
-  .nsearch{display:flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--br);border-radius:20px;padding:6px 12px;flex:1;max-width:200px;transition:border-color .2s;}
-  .nsearch:focus-within{border-color:var(--pm);box-shadow:0 0 10px var(--pg);}
-  .nsearch input{background:none;border:none;outline:none;color:var(--tx);font-family:'Nunito',sans-serif;font-size:.8rem;width:100%;}
-  .nsearch input::placeholder{color:var(--td);}
-  .hero{position:relative;height:300px;overflow:hidden;}
-  .hbg{position:absolute;inset:0;background:linear-gradient(135deg,#1a0533,#0a0910 50%,#0c1a33);}
-  .orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.3;}
-  .o1{width:320px;height:320px;background:var(--pm);top:-140px;left:-80px;animation:flt 6s ease-in-out infinite;}
-  .o2{width:260px;height:260px;background:var(--pk);top:-50px;right:-50px;animation:flt 6s ease-in-out infinite 3s;}
-  @keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
-  .hcontent{position:relative;z-index:2;display:flex;align-items:flex-end;height:100%;padding:0 14px 24px;gap:14px;}
-  .himg{width:100px;height:145px;border-radius:10px;object-fit:cover;box-shadow:0 6px 24px rgba(124,58,237,.5);border:2px solid var(--pd);flex-shrink:0;background:var(--card2);}
-  .hinfo{flex:1;}
-  .hbadge{display:inline-block;background:var(--pm);color:#fff;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:7px;text-transform:uppercase;letter-spacing:.8px;}
-  .htitle{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:7px;text-shadow:0 2px 8px rgba(0,0,0,.6);}
-  .hmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .htype{background:rgba(124,58,237,.3);border:1px solid var(--pd);color:var(--pl);font-size:.66rem;padding:2px 7px;border-radius:4px;}
-  .hscore{color:#fbbf24;font-size:.7rem;font-weight:700;}
-  .hdots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3;}
-  .dot{width:6px;height:6px;border-radius:50%;background:var(--td);cursor:pointer;transition:all .3s;}
-  .dot.active{background:var(--pl);width:16px;border-radius:3px;}
-  main{padding:12px 12px 78px;}
-  .qm{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
-  .qm::-webkit-scrollbar{display:none;}
-  .qb{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--card);border:1px solid var(--br);border-radius:12px;padding:9px 14px;cursor:pointer;transition:all .2s;min-width:68px;flex-shrink:0;}
-  .qb:hover,.qb.active{border-color:var(--pm);background:var(--pd);}
-  .qi{font-size:1.15rem;}.ql{font-size:.66rem;color:var(--tm);white-space:nowrap;}
-  .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;margin-top:17px;}
-  .st{display:flex;align-items:center;gap:7px;font-family:'Cinzel',serif;font-size:.88rem;font-weight:700;}
-  .sd{width:7px;height:7px;background:var(--pm);border-radius:50%;box-shadow:0 0 7px var(--pm);}
-  .sa{font-size:.7rem;color:var(--pl);cursor:pointer;}
-  .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
-  .cc{background:var(--card);border-radius:9px;overflow:hidden;border:1px solid var(--br);cursor:pointer;transition:all .2s;position:relative;}
-  .cc:hover{border-color:var(--pm);transform:translateY(-2px);box-shadow:0 6px 18px rgba(124,58,237,.2);}
-  .ci{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;}
-  .cp{width:100%;aspect-ratio:2/3;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--td);}
-  .cb{position:absolute;top:4px;left:4px;color:#fff;font-size:.5rem;font-weight:700;padding:2px 5px;border-radius:3px;text-transform:uppercase;letter-spacing:.4px;}
-  .manga{background:#7c3aed;}.manhwa{background:#0ea5e9;}.manhua{background:#f59e0b;}.novel,.light-novel{background:#10b981;}.other,.default{background:#6b7280;}
-  .csc{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.75);color:#fbbf24;font-size:.56rem;font-weight:700;padding:2px 4px;border-radius:3px;}
-  .cif{padding:6px;}.ctt{font-size:.68rem;font-weight:600;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:2px;}
-  .cch{font-size:.6rem;color:var(--pl);font-weight:600;}
-  .ncard{background:var(--card);border:1px solid var(--br);border-radius:11px;padding:11px;display:flex;gap:11px;cursor:pointer;transition:all .2s;}
-  .ncard:hover{border-color:var(--pm);box-shadow:0 4px 14px var(--pg);}
-  .nth{width:52px;height:76px;border-radius:6px;object-fit:cover;flex-shrink:0;background:var(--card2);}
-  .ni{flex:1;min-width:0;}.ntt{font-size:.78rem;font-weight:700;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-  .nch{font-size:.66rem;color:var(--pl);font-weight:600;margin-bottom:4px;}
-  .ntgs{display:flex;flex-wrap:wrap;gap:3px;}.ntg{font-size:.57rem;padding:2px 5px;border-radius:3px;background:var(--pd);color:var(--pl);border:1px solid rgba(124,58,237,.3);}
-  .chips{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-bottom:11px;}
-  .chips::-webkit-scrollbar{display:none;}
-  .chip{padding:5px 13px;border-radius:18px;font-size:.68rem;font-weight:600;border:1px solid var(--br);color:var(--tm);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .2s;background:var(--card);}
-  .chip:hover,.chip.active{background:var(--pm);border-color:var(--pm);color:#fff;box-shadow:0 0 9px var(--pg);}
-  .bn{position:fixed;bottom:0;left:0;right:0;background:rgba(10,9,16,.96);backdrop-filter:blur(20px);border-top:1px solid var(--br);display:flex;justify-content:space-around;padding:7px 0 13px;z-index:100;}
-  .bni{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;opacity:.4;transition:opacity .2s;}
-  .bni.active{opacity:1;}.bnic{font-size:1.1rem;}.bnl{font-size:.57rem;color:var(--tm);}
-  .bni.active .bnl{color:var(--pl);}
-  .sk{background:linear-gradient(90deg,var(--card) 25%,var(--card2) 50%,var(--card) 75%);background-size:200% 100%;animation:shim 1.4s infinite;border-radius:9px;}
-  .skc{aspect-ratio:2/3;}@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
-  .err{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);border-radius:9px;padding:13px;text-align:center;color:#fca5a5;font-size:.76rem;}
-  .toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--pm);color:#fff;padding:7px 18px;border-radius:18px;font-size:.74rem;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap;}
-  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
-  .movl{position:fixed;inset:0;background:rgba(0,0,0,.86);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;}
-  .movl.open{opacity:1;pointer-events:all;}
-  .ms{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-radius:18px 18px 0 0;border-top:1px solid var(--br);max-height:88vh;overflow-y:auto;z-index:201;transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);padding:18px 14px 38px;}
-  .ms.open{transform:translateY(0);}
-  .mh{width:38px;height:4px;background:var(--br);border-radius:2px;margin:0 auto 14px;}
-  .mcr{display:flex;gap:13px;margin-bottom:13px;}
-  .mcov{width:85px;height:122px;border-radius:9px;object-fit:cover;border:2px solid var(--pd);flex-shrink:0;}
-  .mmeta{flex:1;}.mttl{font-family:'Cinzel',serif;font-size:.92rem;font-weight:700;margin-bottom:7px;line-height:1.4;}
-  .msyn{font-size:.74rem;color:var(--tm);line-height:1.7;margin-bottom:13px;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;}
-  .mbtn{width:100%;padding:12px;background:var(--pm);color:#fff;border:none;border-radius:11px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 18px var(--pg);transition:all .2s;margin-bottom:8px;}
-  .mbtn.out{background:none;border:1px solid var(--pm);color:var(--pl);box-shadow:none;}
-  .page{display:none;}.page.active{display:block;}
-  .si{display:flex;align-items:center;gap:9px;margin-bottom:10px;margin-top:11px;}
-  .sib{flex:1;background:var(--card);border:1px solid var(--br);border-radius:11px;padding:11px 13px;color:var(--tx);font-family:'Nunito',sans-serif;font-size:.86rem;outline:none;transition:border-color .2s;}
-  .sib:focus{border-color:var(--pm);}
-  .sbtn{padding:11px 16px;background:var(--pm);color:#fff;border:none;border-radius:11px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;font-size:.8rem;}
-  .empty{text-align:center;padding:38px 18px;color:var(--td);}.eic{font-size:2.6rem;margin-bottom:9px;}.etx{font-size:.8rem;}
-  .lm{display:block;width:100%;padding:10px;background:none;border:1px solid var(--pm);color:var(--pl);border-radius:18px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;margin-top:13px;transition:all .2s;}
-  .lm:hover{background:var(--pm);color:#fff;}
-  .rank-badge{position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,.75);color:#a78bfa;font-size:.55rem;font-weight:700;padding:2px 4px;border-radius:3px;}
+:root{--bg:#0a0910;--card:#110f1e;--card2:#16132a;--pm:#7c3aed;--pl:#a78bfa;--pg:#7c3aed44;--pd:#2d1f5e;--pk:#e879f9;--tx:#e8e0ff;--tm:#8b7db0;--td:#4e4470;--br:#2a2050;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--pm);border-radius:10px;}
+nav{position:sticky;top:0;z-index:100;background:rgba(10,9,16,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--br);padding:0 14px;display:flex;align-items:center;height:56px;gap:10px;}
+.logo{font-family:'Cinzel',serif;font-size:1.2rem;font-weight:700;background:linear-gradient(90deg,var(--pl),var(--pk));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:2px;flex-shrink:0;}
+.nsearch{display:flex;align-items:center;gap:6px;background:var(--card2);border:1px solid var(--br);border-radius:20px;padding:6px 12px;flex:1;transition:border-color .2s;}
+.nsearch:focus-within{border-color:var(--pm);box-shadow:0 0 10px var(--pg);}
+.nsearch input{background:none;border:none;outline:none;color:var(--tx);font-family:'Nunito',sans-serif;font-size:.8rem;width:100%;}
+.nsearch input::placeholder{color:var(--td);}
+.hero{position:relative;height:300px;overflow:hidden;}
+.hbg{position:absolute;inset:0;background:linear-gradient(135deg,#1a0533,#0a0910 50%,#0c1a33);}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.3;}
+.o1{width:320px;height:320px;background:var(--pm);top:-140px;left:-80px;animation:flt 6s ease-in-out infinite;}
+.o2{width:260px;height:260px;background:var(--pk);top:-50px;right:-50px;animation:flt 6s ease-in-out infinite 3s;}
+@keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.hcont{position:relative;z-index:2;display:flex;align-items:flex-end;height:100%;padding:0 14px 24px;gap:14px;}
+.himg{width:100px;height:145px;border-radius:10px;object-fit:cover;box-shadow:0 6px 24px rgba(124,58,237,.5);border:2px solid var(--pd);flex-shrink:0;background:var(--card2);}
+.hinfo{flex:1;}
+.hbadge{display:inline-block;background:var(--pm);color:#fff;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:7px;text-transform:uppercase;}
+.htitle{font-family:'Cinzel',serif;font-size:1.15rem;font-weight:700;color:#fff;line-height:1.3;margin-bottom:7px;text-shadow:0 2px 8px rgba(0,0,0,.6);}
+.hmeta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.htype{background:rgba(124,58,237,.3);border:1px solid var(--pd);color:var(--pl);font-size:.66rem;padding:2px 7px;border-radius:4px;}
+.hdots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--td);cursor:pointer;transition:all .3s;}
+.dot.active{background:var(--pl);width:16px;border-radius:3px;}
+main{padding:12px 12px 78px;}
+.qm{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+.qm::-webkit-scrollbar{display:none;}
+.qb{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--card);border:1px solid var(--br);border-radius:12px;padding:9px 14px;cursor:pointer;transition:all .2s;min-width:68px;flex-shrink:0;}
+.qb:hover,.qb.active{border-color:var(--pm);background:var(--pd);}
+.qi{font-size:1.15rem;}.ql{font-size:.66rem;color:var(--tm);white-space:nowrap;}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:11px;margin-top:17px;}
+.st{display:flex;align-items:center;gap:7px;font-family:'Cinzel',serif;font-size:.88rem;font-weight:700;}
+.sd{width:7px;height:7px;background:var(--pm);border-radius:50%;box-shadow:0 0 7px var(--pm);}
+.sa{font-size:.7rem;color:var(--pl);cursor:pointer;}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+.cc{background:var(--card);border-radius:9px;overflow:hidden;border:1px solid var(--br);cursor:pointer;transition:all .2s;position:relative;}
+.cc:hover{border-color:var(--pm);transform:translateY(-2px);box-shadow:0 6px 18px rgba(124,58,237,.2);}
+.ci{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;}
+.cp{width:100%;aspect-ratio:2/3;background:var(--card2);display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:var(--td);}
+.cb{position:absolute;top:4px;left:4px;color:#fff;font-size:.5rem;font-weight:700;padding:2px 5px;border-radius:3px;text-transform:uppercase;}
+.manga{background:#7c3aed;}.manhwa{background:#0ea5e9;}.manhua{background:#f59e0b;}.novel{background:#10b981;}.default{background:#6b7280;}
+.cif{padding:6px;}
+.ctt{font-size:.68rem;font-weight:600;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:2px;}
+.cch{font-size:.6rem;color:var(--pl);font-weight:600;}
+.ncard{background:var(--card);border:1px solid var(--br);border-radius:11px;padding:11px;display:flex;gap:11px;cursor:pointer;transition:all .2s;}
+.ncard:hover{border-color:var(--pm);box-shadow:0 4px 14px var(--pg);}
+.nth{width:52px;height:76px;border-radius:6px;object-fit:cover;flex-shrink:0;background:var(--card2);}
+.ni{flex:1;min-width:0;}
+.ntt{font-size:.78rem;font-weight:700;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.nch{font-size:.66rem;color:var(--pl);font-weight:600;margin-bottom:4px;}
+.ntgs{display:flex;flex-wrap:wrap;gap:3px;}
+.ntg{font-size:.57rem;padding:2px 5px;border-radius:3px;background:var(--pd);color:var(--pl);}
+.chips{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;margin-bottom:11px;}
+.chips::-webkit-scrollbar{display:none;}
+.chip{padding:5px 13px;border-radius:18px;font-size:.68rem;font-weight:600;border:1px solid var(--br);color:var(--tm);cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .2s;background:var(--card);}
+.chip:hover,.chip.active{background:var(--pm);border-color:var(--pm);color:#fff;}
+.bn{position:fixed;bottom:0;left:0;right:0;background:rgba(10,9,16,.97);backdrop-filter:blur(20px);border-top:1px solid var(--br);display:flex;justify-content:space-around;padding:7px 0 13px;z-index:100;}
+.bni{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;opacity:.4;transition:opacity .2s;}
+.bni.active{opacity:1;}
+.bnic{font-size:1.1rem;}.bnl{font-size:.57rem;color:var(--tm);}
+.bni.active .bnl{color:var(--pl);}
+.sk{background:linear-gradient(90deg,var(--card) 25%,var(--card2) 50%,var(--card) 75%);background-size:200% 100%;animation:shim 1.4s infinite;border-radius:9px;}
+.skc{aspect-ratio:2/3;}
+@keyframes shim{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.err{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.22);border-radius:9px;padding:13px;text-align:center;color:#fca5a5;font-size:.76rem;}
+.toast{position:fixed;bottom:76px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--pm);color:#fff;padding:7px 18px;border-radius:18px;font-size:.74rem;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.movl{position:fixed;inset:0;background:rgba(0,0,0,.87);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s;}
+.movl.open{opacity:1;pointer-events:all;}
+.ms{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-radius:18px 18px 0 0;border-top:1px solid var(--br);max-height:88vh;overflow-y:auto;z-index:201;transform:translateY(100%);transition:transform .4s cubic-bezier(.16,1,.3,1);padding:18px 14px 38px;}
+.ms.open{transform:translateY(0);}
+.mh{width:38px;height:4px;background:var(--br);border-radius:2px;margin:0 auto 14px;}
+.mcr{display:flex;gap:13px;margin-bottom:13px;}
+.mcov{width:85px;height:122px;border-radius:9px;object-fit:cover;border:2px solid var(--pd);flex-shrink:0;}
+.mmeta{flex:1;}
+.mttl{font-family:'Cinzel',serif;font-size:.92rem;font-weight:700;margin-bottom:7px;line-height:1.4;}
+.msyn{font-size:.74rem;color:var(--tm);line-height:1.7;margin-bottom:13px;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;}
+.mbtn{width:100%;padding:12px;background:var(--pm);color:#fff;border:none;border-radius:11px;font-family:'Nunito',sans-serif;font-size:.86rem;font-weight:700;cursor:pointer;box-shadow:0 4px 18px var(--pg);margin-bottom:8px;transition:all .2s;}
+.mbtn.out{background:none;border:1px solid var(--pm);color:var(--pl);box-shadow:none;}
+.page{display:none;}.page.active{display:block;}
+.si{display:flex;align-items:center;gap:9px;margin-bottom:10px;margin-top:11px;}
+.sib{flex:1;background:var(--card);border:1px solid var(--br);border-radius:11px;padding:11px 13px;color:var(--tx);font-family:'Nunito',sans-serif;font-size:.86rem;outline:none;transition:border-color .2s;}
+.sib:focus{border-color:var(--pm);}
+.sbtn{padding:11px 16px;background:var(--pm);color:#fff;border:none;border-radius:11px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;font-size:.8rem;}
+.empty{text-align:center;padding:38px 18px;color:var(--td);}
+.eic{font-size:2.6rem;margin-bottom:9px;}.etx{font-size:.8rem;}
+.lm{display:block;width:100%;padding:10px;background:none;border:1px solid var(--pm);color:var(--pl);border-radius:18px;font-family:'Nunito',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;margin-top:13px;transition:all .2s;}
+.lm:hover{background:var(--pm);color:#fff;}
 </style>
 </head>
 <body>
@@ -99,7 +103,7 @@
   <div class="logo">HIDAKA</div>
   <div class="nsearch">
     <span style="color:var(--td);font-size:.8rem">🔍</span>
-    <input type="text" placeholder="Cari judul..." id="nsi" onkeydown="if(event.key==='Enter')goSearch()">
+    <input type="text" placeholder="Cari komik/novel..." id="nsi" onkeydown="if(event.key==='Enter')goSearch()">
   </div>
 </nav>
 
@@ -107,7 +111,7 @@
 <div id="page-home" class="page active">
   <div class="hero">
     <div class="hbg"></div><div class="orb o1"></div><div class="orb o2"></div>
-    <div class="hcontent" id="hc"><div style="flex:1;text-align:center;color:var(--td);font-size:.8rem">⏳ Memuat...</div></div>
+    <div class="hcont" id="hc"><div style="flex:1;text-align:center;color:var(--td);font-size:.8rem">⏳ Memuat...</div></div>
     <div class="hdots" id="hd"></div>
   </div>
   <main>
@@ -118,12 +122,12 @@
       <div class="qb" onclick="tab('search')"><span class="qi">🔍</span><span class="ql">Cari</span></div>
       <div class="qb" onclick="tab('bookmark')"><span class="qi">🔖</span><span class="ql">Bookmark</span></div>
     </div>
-    <div class="sh"><div class="st"><div class="sd"></div>Manga Populer</div><span class="sa" onclick="tab('komik')">Lihat Semua →</span></div>
+    <div class="sh"><div class="st"><div class="sd"></div>Komik Populer</div><span class="sa" onclick="tab('komik')">Lihat Semua →</span></div>
     <div id="hPop" class="g3"><div class="sk skc"></div><div class="sk skc"></div><div class="sk skc"></div></div>
-    <div class="sh"><div class="st"><div class="sd"></div>Manga Terbaik</div><span class="sa" onclick="tab('komik')">Lihat Semua →</span></div>
-    <div id="hTop" class="g3"><div class="sk skc"></div><div class="sk skc"></div><div class="sk skc"></div></div>
-    <div class="sh"><div class="st"><div class="sd"></div>Manhwa & Manhua</div><span class="sa" onclick="tab('komik')">Lihat Semua →</span></div>
-    <div id="hMwh" class="g3"><div class="sk skc"></div><div class="sk skc"></div><div class="sk skc"></div></div>
+    <div class="sh"><div class="st"><div class="sd"></div>Update Terbaru</div><span class="sa" onclick="tab('komik')">Lihat Semua →</span></div>
+    <div id="hNew" class="g3"><div class="sk skc"></div><div class="sk skc"></div><div class="sk skc"></div></div>
+    <div class="sh"><div class="st"><div class="sd"></div>Trending</div><span class="sa" onclick="tab('komik')">Lihat Semua →</span></div>
+    <div id="hTrend" class="g3"><div class="sk skc"></div><div class="sk skc"></div><div class="sk skc"></div></div>
   </main>
 </div>
 
@@ -132,12 +136,11 @@
   <main>
     <div class="sh" style="margin-top:10px"><div class="st"><div class="sd"></div>Daftar Komik</div></div>
     <div class="chips" id="kch">
-      <div class="chip active" onclick="fk('all',this)">Semua</div>
+      <div class="chip active" onclick="fk('populer',this)">Populer</div>
+      <div class="chip" onclick="fk('terbaru',this)">Terbaru</div>
       <div class="chip" onclick="fk('manga',this)">Manga</div>
       <div class="chip" onclick="fk('manhwa',this)">Manhwa</div>
       <div class="chip" onclick="fk('manhua',this)">Manhua</div>
-      <div class="chip" onclick="fk('doujinshi',this)">Doujinshi</div>
-      <div class="chip" onclick="fk('oneshot',this)">One Shot</div>
     </div>
     <div id="kList" class="g3"><div class="sk skc"></div><div class="sk skc"></div><div class="sk skc"></div><div class="sk skc"></div><div class="sk skc"></div><div class="sk skc"></div></div>
     <button class="lm" id="kmb" onclick="moreK()">Muat Lebih Banyak</button>
@@ -147,8 +150,16 @@
 <!-- NOVEL -->
 <div id="page-novel" class="page">
   <main>
-    <div class="sh" style="margin-top:10px"><div class="st"><div class="sd"></div>Light Novel</div></div>
-    <div id="nList" style="display:flex;flex-direction:column;gap:9px"><div class="sk" style="height:90px;border-radius:11px"></div><div class="sk" style="height:90px;border-radius:11px"></div><div class="sk" style="height:90px;border-radius:11px"></div></div>
+    <div class="sh" style="margin-top:10px"><div class="st"><div class="sd"></div>Daftar Novel</div></div>
+    <div class="chips" id="nvch">
+      <div class="chip active" onclick="fn('home',this)">Terbaru</div>
+      <div class="chip" onclick="fn('hot-search',this)">Hot Search</div>
+    </div>
+    <div id="nList" style="display:flex;flex-direction:column;gap:9px">
+      <div class="sk" style="height:90px;border-radius:11px"></div>
+      <div class="sk" style="height:90px;border-radius:11px"></div>
+      <div class="sk" style="height:90px;border-radius:11px"></div>
+    </div>
     <button class="lm" id="nvb" onclick="moreN()">Muat Lebih Banyak</button>
   </main>
 </div>
@@ -157,12 +168,12 @@
 <div id="page-search" class="page">
   <main>
     <div class="si">
-      <input type="text" class="sib" id="si" placeholder="Cari judul manga/novel..." oninput="liveS(this.value)">
+      <input type="text" class="sib" id="si" placeholder="Cari judul komik/novel..." oninput="liveS(this.value)">
       <button class="sbtn" onclick="doS()">Cari</button>
     </div>
     <div class="chips" id="stc">
-      <div class="chip active" onclick="setST('manga',this)">Manga/Komik</div>
-      <div class="chip" onclick="setST('novel',this)">Light Novel</div>
+      <div class="chip active" onclick="setST('comic',this)">Komik</div>
+      <div class="chip" onclick="setST('novel',this)">Novel</div>
     </div>
     <div id="sRes"><div class="empty"><div class="eic">🔍</div><div class="etx">Ketik judul untuk mulai cari</div></div></div>
   </main>
@@ -188,18 +199,20 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Jikan v4 API via /api/proxy ──
-// GET /manga?order_by=popularity&sort=asc&page=1  → popular manga
-// GET /top/manga?page=1                           → top manga
-// GET /manga?type=manhwa&order_by=popularity      → manhwa
-// GET /manga?type=manga&order_by=popularity       → manga only
-// GET /manga?q=query&type=manga                   → search manga
-// GET /manga?type=light_novel&order_by=popularity → light novel
-// Response: { data: [{ mal_id, title, images, synopsis, type, score, chapters, volumes, status, genres, authors }] }
+// Sanka API endpoints (via proxy):
+// GET /comic/populer          → komik populer
+// GET /comic/terbaru          → komik terbaru
+// GET /comic/trending         → trending
+// GET /comic/homepage         → homepage data
+// GET /comic/type/:type       → filter manga/manhwa/manhua
+// GET /comic/search?q=...     → search komik
+// GET /novel/home             → novel terbaru
+// GET /novel/hot-search       → novel trending
+// GET /novel/search?q=...     → search novel
 
-let kPage=1, nvPage=1, kFilter='all';
+let kPage=1, nvPage=1, kMode='populer', nvMode='home';
 let heroItems=[], heroIdx=0, heroTmr;
-let srchDeb, srchType='manga';
+let srchDeb, srchType='comic';
 let bm=JSON.parse(localStorage.getItem('hdbm')||'[]');
 
 async function api(path, params={}) {
@@ -210,7 +223,33 @@ async function api(path, params={}) {
     const r=await fetch(u);
     if(!r.ok) throw new Error(r.status);
     return await r.json();
-  } catch(e){ console.error('API err',path,e); return null; }
+  } catch(e){ console.error('API',path,e); return null; }
+}
+
+// ── helper ambil array dari berbagai struktur response ──
+function getList(data) {
+  if(!data) return [];
+  return data.data||data.komik||data.result||data.comics||
+         data.popular||data.latest||data.trending||
+         data.novels||data.novel||data.results||
+         (Array.isArray(data)?data:[]);
+}
+
+// ── helper ambil field gambar ──
+function getImg(c) {
+  return c.thumbnail||c.cover||c.image||c.img||c.thumb||
+         c.cover_image||c.poster||'';
+}
+
+// ── helper ambil judul chapter terbaru ──
+function getCh(c) {
+  return c.latest_chapter||c.chapter||c.last_chapter||
+         c.newest_chapter||c.update||'';
+}
+
+// ── helper ambil type ──
+function getType(c) {
+  return (c.type||c.tipe||c.genre_type||'Manga');
 }
 
 function tab(t) {
@@ -227,16 +266,15 @@ function tab(t) {
 function renderHero() {
   if(!heroItems.length) return;
   const it=heroItems[heroIdx];
-  const img=it.images?.jpg?.large_image_url||it.images?.jpg?.image_url||'';
+  const img=getImg(it);
   document.getElementById('hc').innerHTML=`
     ${img?`<img src="${img}" class="himg" onerror="this.style.display='none'" loading="lazy" alt="">`:''}
     <div class="hinfo">
-      <span class="hbadge">${it.type||'MANGA'}</span>
-      <div class="htitle">${it.title}</div>
+      <span class="hbadge">${getType(it)}</span>
+      <div class="htitle">${it.title||it.judul||''}</div>
       <div class="hmeta">
-        <span class="htype">${it.type||'Manga'}</span>
-        ${it.score?`<span class="hscore">⭐ ${it.score}</span>`:''}
-        ${it.chapters?`<span style="color:var(--tm);font-size:.68rem">${it.chapters} ch</span>`:''}
+        <span class="htype">${getType(it)}</span>
+        ${getCh(it)?`<span style="color:var(--tm);font-size:.68rem">${getCh(it)}</span>`:''}
       </div>
     </div>`;
   document.getElementById('hd').innerHTML=
@@ -246,68 +284,78 @@ function setH(i){heroIdx=i;renderHero();clearInterval(heroTmr);heroTmr=setInterv
 
 // ── HOME ──
 async function loadHome() {
-  const [pop, top, manhwa] = await Promise.all([
-    api('/manga', {order_by:'popularity', sort:'asc', limit:20, page:1}),
-    api('/top/manga', {page:1, limit:9}),
-    api('/manga', {type:'manhwa', order_by:'popularity', sort:'asc', limit:9, page:1}),
+  const [pop, baru, trend] = await Promise.all([
+    api('/comic/populer'),
+    api('/comic/terbaru'),
+    api('/comic/trending'),
   ]);
 
-  const popList=pop?.data||[];
-  const topList=top?.data||[];
-  const mwhList=manhwa?.data||[];
+  const popList=getList(pop);
+  const baruList=getList(baru);
+  const trendList=getList(trend);
 
   heroItems=popList.slice(0,7);
-  if(heroItems.length){renderHero();heroTmr=setInterval(()=>{heroIdx=(heroIdx+1)%heroItems.length;renderHero();},4200);}
-  else document.getElementById('hc').innerHTML=`<div style="flex:1;text-align:center;color:var(--td)"><div style="font-size:2.5rem;margin-bottom:8px">📖</div><div style="font-size:.8rem">HidakaRead</div></div>`;
+  if(heroItems.length){
+    renderHero();
+    heroTmr=setInterval(()=>{heroIdx=(heroIdx+1)%heroItems.length;renderHero();},4200);
+  } else {
+    document.getElementById('hc').innerHTML=`<div style="flex:1;text-align:center;color:var(--td)"><div style="font-size:2.5rem;margin-bottom:8px">📖</div><div style="font-size:.8rem">HidakaRead</div></div>`;
+  }
 
   document.getElementById('hPop').innerHTML=popList.length
     ? popList.slice(0,9).map(cHTML).join('')
-    : `<div class="err" style="grid-column:1/-1">Gagal memuat manga populer.</div>`;
+    : `<div class="err" style="grid-column:1/-1">Gagal memuat komik populer.</div>`;
 
-  document.getElementById('hTop').innerHTML=topList.length
-    ? topList.map((c,i)=>cHTML(c,i+1)).join('')
-    : `<div class="err" style="grid-column:1/-1">Gagal memuat top manga.</div>`;
+  document.getElementById('hNew').innerHTML=baruList.length
+    ? baruList.slice(0,9).map(cHTML).join('')
+    : `<div class="err" style="grid-column:1/-1">Gagal memuat komik terbaru.</div>`;
 
-  document.getElementById('hMwh').innerHTML=mwhList.length
-    ? mwhList.map(cHTML).join('')
-    : `<div class="err" style="grid-column:1/-1">Gagal memuat manhwa.</div>`;
+  document.getElementById('hTrend').innerHTML=trendList.length
+    ? trendList.slice(0,9).map(cHTML).join('')
+    : `<div class="err" style="grid-column:1/-1">Gagal memuat trending.</div>`;
 }
 
-// ── KOMIK ──
+// ── KOMIK PAGE ──
 async function loadK(reset=false) {
   if(reset){kPage=1;document.getElementById('kList').innerHTML=skC(6);}
-  let params={order_by:'popularity', sort:'asc', limit:18, page:kPage};
-  if(kFilter!=='all') params.type=kFilter;
-  const data=await api('/manga',params);
-  const items=data?.data||[];
+  let path, params={};
+  if(kMode==='populer') path='/comic/populer';
+  else if(kMode==='terbaru') path='/comic/terbaru';
+  else path=`/comic/type/${kMode}`;
+  if(kPage>1) params.page=kPage;
+
+  const data=await api(path,params);
+  const items=getList(data);
   const el=document.getElementById('kList');
   if(kPage===1) el.innerHTML=items.length?items.map(cHTML).join(''):`<div class="err" style="grid-column:1/-1">Gagal memuat komik.</div>`;
   else el.innerHTML+=items.map(cHTML).join('');
 }
 async function moreK(){kPage++;const b=document.getElementById('kmb');b.textContent='⏳...';b.disabled=true;await loadK();b.textContent='Muat Lebih Banyak';b.disabled=false;}
-async function fk(f,el){kFilter=f;document.querySelectorAll('#kch .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');await loadK(true);}
+async function fk(mode,el){kMode=mode;document.querySelectorAll('#kch .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');await loadK(true);}
 
-// ── NOVEL ──
+// ── NOVEL PAGE ──
 async function loadN(reset=false) {
   if(reset){nvPage=1;document.getElementById('nList').innerHTML=skN(3);}
-  const data=await api('/manga',{type:'light_novel', order_by:'popularity', sort:'asc', limit:10, page:nvPage});
-  const items=data?.data||[];
+  const path=nvMode==='home'?'/novel/home':'/novel/hot-search';
+  const data=await api(path);
+  const items=getList(data);
   const el=document.getElementById('nList');
   if(nvPage===1) el.innerHTML=items.length?items.map(nHTML).join(''):`<div class="err">Gagal memuat novel.</div>`;
   else el.innerHTML+=items.map(nHTML).join('');
 }
 async function moreN(){nvPage++;const b=document.getElementById('nvb');b.textContent='⏳...';b.disabled=true;await loadN();b.textContent='Muat Lebih Banyak';b.disabled=false;}
+async function fn(mode,el){nvMode=mode;document.querySelectorAll('#nvch .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');await loadN(true);}
 
 // ── SEARCH ──
 function setST(t,el){srchType=t;document.querySelectorAll('#stc .chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');const q=document.getElementById('si').value;if(q.length>1)doS(q);}
 function liveS(v){clearTimeout(srchDeb);if(v.length<2){document.getElementById('sRes').innerHTML=`<div class="empty"><div class="eic">🔍</div><div class="etx">Ketik minimal 2 karakter</div></div>`;return;}srchDeb=setTimeout(()=>doS(v),600);}
-async function doS(q){
+async function doS(q) {
   const query=q||document.getElementById('si').value;
   if(!query||query.length<2) return;
   document.getElementById('sRes').innerHTML=`<div class="g3">${skC(6)}</div>`;
-  const type=srchType==='novel'?'light_novel':'manga';
-  const data=await api('/manga',{q:query, type, limit:18});
-  const items=data?.data||[];
+  const path=srchType==='novel'?'/novel/search':'/comic/search';
+  const data=await api(path,{q:query});
+  const items=getList(data);
   if(!items.length){document.getElementById('sRes').innerHTML=`<div class="empty"><div class="eic">😕</div><div class="etx">Tidak ada hasil untuk "${query}"</div></div>`;return;}
   document.getElementById('sRes').innerHTML=srchType==='novel'
     ?`<div style="display:flex;flex-direction:column;gap:9px">${items.map(nHTML).join('')}</div>`
@@ -316,51 +364,43 @@ async function doS(q){
 function goSearch(){const q=document.getElementById('nsi').value.trim();if(!q)return;tab('search');document.getElementById('si').value=q;doS(q);}
 
 // ── CARD HTML ──
-function cHTML(c, rank) {
-  const img=c.images?.jpg?.image_url||'';
-  const type=(c.type||'manga').toLowerCase().replace(/\s+/g,'-');
-  const label=c.type||'Manga';
+function cHTML(c) {
+  const img=getImg(c);
+  const type=(getType(c)).toLowerCase();
+  const title=c.title||c.judul||'';
+  const ch=getCh(c);
+  const slug=c.slug||c.endpoint||c.id||'';
   const enc=encodeURIComponent(JSON.stringify({
-    mal_id:c.mal_id, title:c.title,
-    image:img, type:c.type,
-    score:c.score, chapters:c.chapters,
-    synopsis:c.synopsis, status:c.status,
-    genres:(c.genres||[]).map(g=>g.name),
-    authors:(c.authors||[]).map(a=>a.name),
-    url:c.url
+    title,img,type:getType(c),chapter:ch,slug,
+    synopsis:c.synopsis||c.sinopsis||c.desc||c.description||''
   }));
   return `<div class="cc" onclick="openD('${enc}')">
     <div style="position:relative">
       ${img?`<img src="${img}" class="ci" onerror="this.parentNode.innerHTML='<div class=cp>📖</div>'" loading="lazy" alt="">`:`<div class="cp">📖</div>`}
-      <span class="cb ${type}">${label}</span>
-      ${c.score?`<span class="csc">⭐${c.score}</span>`:''}
-      ${rank?`<span class="rank-badge">#${rank}</span>`:''}
+      <span class="cb ${type}">${getType(c)}</span>
     </div>
     <div class="cif">
-      <div class="ctt">${c.title}</div>
-      ${c.chapters?`<div class="cch">${c.chapters} chapter</div>`:(c.status?`<div class="cch">${c.status}</div>`:'')}
+      <div class="ctt">${title}</div>
+      ${ch?`<div class="cch">${ch}</div>`:''}
     </div>
   </div>`;
 }
 
 function nHTML(c) {
-  const img=c.images?.jpg?.image_url||'';
-  const genres=(c.genres||[]).slice(0,3).map(g=>g.name);
+  const img=getImg(c);
+  const title=c.title||c.judul||c.name||'';
+  const ch=getCh(c);
   const enc=encodeURIComponent(JSON.stringify({
-    mal_id:c.mal_id, title:c.title, image:img, type:c.type,
-    score:c.score, chapters:c.chapters, synopsis:c.synopsis,
-    status:c.status, genres:(c.genres||[]).map(g=>g.name),
-    authors:(c.authors||[]).map(a=>a.name), url:c.url
+    title,img,type:'Novel',chapter:ch,
+    slug:c.slug||c.id||'',
+    synopsis:c.synopsis||c.sinopsis||c.desc||''
   }));
   return `<div class="ncard" onclick="openD('${enc}')">
     ${img?`<img src="${img}" class="nth" onerror="this.style.display='none'" loading="lazy" alt="">`:`<div class="nth" style="display:flex;align-items:center;justify-content:center;font-size:1.3rem">📚</div>`}
     <div class="ni">
-      <div class="ntt">${c.title}</div>
-      ${c.score?`<div class="nch">⭐ ${c.score}</div>`:''}
-      <div class="ntgs">
-        <span class="ntg">Light Novel</span>
-        ${genres.map(g=>`<span class="ntg">${g}</span>`).join('')}
-      </div>
+      <div class="ntt">${title}</div>
+      ${ch?`<div class="nch">${ch}</div>`:''}
+      <div class="ntgs"><span class="ntg">Novel</span></div>
     </div>
   </div>`;
 }
@@ -371,31 +411,27 @@ function skN(n){return Array(n).fill('<div class="sk" style="height:90px;border-
 // ── DETAIL MODAL ──
 function openD(enc) {
   let it; try{it=JSON.parse(decodeURIComponent(enc));}catch(e){return;}
-  const img=it.image||'';
-  const type=(it.type||'manga').toLowerCase().replace(/\s+/g,'-');
-  const isBm=bm.some(b=>b.mal_id===it.mal_id&&b.title===it.title);
-  const syn=it.synopsis||'';
+  const isBm=bm.some(b=>b.title===it.title);
+  const type=(it.type||'Manga').toLowerCase();
   const eS=enc.replace(/'/g,"\\'");
-  const genres=(it.genres||[]).slice(0,5);
+  const readUrl=it.type==='Novel'
+    ?`https://sankanime.com/novel`
+    :`https://sankanime.com/comic/${it.slug||''}`;
 
   document.getElementById('mc').innerHTML=`
     <div class="mcr">
-      ${img?`<img src="${img}" class="mcov" onerror="this.style.display='none'" alt="">`:`<div class="mcov" style="display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--card2)">📖</div>`}
+      ${it.img?`<img src="${it.img}" class="mcov" onerror="this.style.display='none'" alt="">`:`<div class="mcov" style="display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--card2)">📖</div>`}
       <div class="mmeta">
         <div class="mttl">${it.title}</div>
         <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px">
           <span class="cb ${type}" style="position:static;font-size:.6rem;padding:2px 6px">${it.type||'Manga'}</span>
-          ${it.score?`<span style="color:#fbbf24;font-size:.74rem;font-weight:700">⭐ ${it.score}</span>`:''}
         </div>
-        ${it.chapters?`<div style="font-size:.7rem;color:var(--pl);font-weight:600;margin-bottom:3px">📖 ${it.chapters} Chapter</div>`:''}
-        ${it.status?`<div style="font-size:.66rem;color:var(--tm);margin-bottom:3px">📌 ${it.status}</div>`:''}
-        ${it.authors?.length?`<div style="font-size:.66rem;color:var(--tm)">✍️ ${it.authors.join(', ')}</div>`:''}
+        ${it.chapter?`<div style="font-size:.7rem;color:var(--pl);font-weight:600;margin-bottom:3px">${it.chapter}</div>`:''}
       </div>
     </div>
-    ${genres.length?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px">${genres.map(g=>`<span class="ntg">${g}</span>`).join('')}</div>`:''}
-    ${syn?`<div class="msyn">${syn}</div>`:''}
-    <a href="${it.url||`https://myanimelist.net/manga/${it.mal_id}`}" target="_blank" style="text-decoration:none">
-      <button class="mbtn">📖 Baca di MAL</button>
+    ${it.synopsis?`<div class="msyn">${it.synopsis}</div>`:''}
+    <a href="${readUrl}" target="_blank" style="text-decoration:none">
+      <button class="mbtn">📖 Baca di Sankanime</button>
     </a>
     <button class="mbtn out" onclick="toggleBm('${eS}')">${isBm?'🗑️ Hapus Bookmark':'🔖 Tambah Bookmark'}</button>`;
 
@@ -405,9 +441,9 @@ function openD(enc) {
 function closeM(){document.getElementById('movl').classList.remove('open');document.getElementById('msh').classList.remove('open');}
 
 // ── BOOKMARK ──
-function toggleBm(enc) {
-  let it; try{it=JSON.parse(decodeURIComponent(enc));}catch(e){return;}
-  const idx=bm.findIndex(b=>b.mal_id===it.mal_id&&b.title===it.title);
+function toggleBm(enc){
+  let it;try{it=JSON.parse(decodeURIComponent(enc));}catch(e){return;}
+  const idx=bm.findIndex(b=>b.title===it.title);
   if(idx>=0){bm.splice(idx,1);showToast('Bookmark dihapus');}
   else{bm.push(it);showToast('✅ Ditambahkan ke bookmark!');}
   localStorage.setItem('hdbm',JSON.stringify(bm));
@@ -416,12 +452,7 @@ function toggleBm(enc) {
 function renderBm(){
   const el=document.getElementById('bmL');
   if(!bm.length){el.innerHTML=`<div class="empty"><div class="eic">🔖</div><div class="etx">Belum ada bookmark</div></div>`;return;}
-  el.innerHTML=`<div class="g3">${bm.map(b=>cHTML({
-    mal_id:b.mal_id,title:b.title,images:{jpg:{image_url:b.image}},
-    type:b.type,score:b.score,chapters:b.chapters,status:b.status,
-    genres:(b.genres||[]).map(g=>({name:g})),authors:(b.authors||[]).map(a=>({name:a})),
-    synopsis:b.synopsis,url:b.url
-  })).join('')}</div>`;
+  el.innerHTML=`<div class="g3">${bm.map(b=>cHTML({title:b.title,thumbnail:b.img,type:b.type,latest_chapter:b.chapter,slug:b.slug,synopsis:b.synopsis})).join('')}</div>`;
 }
 
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400);}
